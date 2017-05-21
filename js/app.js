@@ -6,11 +6,35 @@ Todo.prototype.get_name = function () {
     return this.name
 };
 
-var todo_manager = [];
+var TodoManager = function () {
+    this.todos = [];
+};
+
+TodoManager.prototype.add_todo = function (Todo) {
+    var legal_todo = true;
+    for (var index = 0; index < this.todos.length; index = index + 1) {
+        if (this.todos[index].name === Todo.name) {
+            legal_todo = false;
+        }
+    };
+    if (legal_todo === true) {
+        this.todos.push(Todo);
+    }
+    else {
+        console.log("Todo already exists!");
+        alert("" + Todo.name + " already exists!");
+    }
+};
+
+TodoManager.prototype.length = function () {
+    return this.todos.length;
+};
+
+var todo_manager = new TodoManager();
 
 var add_todo = function add_todo (todo_name) {
     var new_todo = new Todo(todo_name);
-    todo_manager.push(new_todo);
+    todo_manager.add_todo(new_todo);
     update_view();
 };
 
@@ -33,12 +57,12 @@ var update_view = function () {
     
     var todo_items = "";
 
-    for (var index = 0; index < todo_manager.length; index = index + 1) {
+    for (var index = 0; index < todo_manager.length(); index = index + 1) {
         todo_items = todo_items + " \
             <tr>\
-                <td>"+todo_manager[index].name+"</td> \
+                <td>" + todo_manager.todos[index].name + "</td> \
                 <td>Complete</td> \
-                <td>Delete</td> \
+                <td><button>Delete</button></td> \
             </tr> \
         ";       
     };
