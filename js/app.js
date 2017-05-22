@@ -1,4 +1,5 @@
-// these are the models
+// Models
+// Todo
 var Todo = function (name) {
     this.name = name
 };
@@ -7,6 +8,9 @@ Todo.prototype.get_name = function () {
     return this.name
 };
 
+
+
+// TodoManager
 var TodoManager = function () {
     this.todos = [];
 };
@@ -53,8 +57,11 @@ TodoManager.prototype.delete_todo = function(TodoName) {
 }
 
 
-// these are the controllers
+
+
+// Controllers
 var todo_manager = new TodoManager();
+var completed_manager = new TodoManager();
 
 var add_todo = function add_todo (todo_name) {
     var new_todo = new Todo(todo_name);
@@ -67,7 +74,16 @@ var delete_todo = function delete_todo (todo_name) {
     update_view();
 };
 
-// this is the view
+var complete_todo = function complete_todo (todo_name) {
+    var new_todo = new Todo(todo_name);
+    completed_manager.add_todo(new_todo);
+    todo_manager.delete_todo(todo_name);
+    update_view();
+};
+
+
+
+// View
 var update_view = function () {
     var todo_list = document.getElementById("todo_list");
     todo_list.innerHTML = "";
@@ -91,13 +107,26 @@ var update_view = function () {
         todo_items = todo_items + " \
             <tr>\
                 <td>" + todo_manager.todos[index].name + "</td> \
-                <td><button>Complete</button></td> \
+                <td><button onclick=\"complete_todo('" + todo_manager.todos[index].name + "');\">Complete</button></td> \
                 <td><button onclick=\"delete_todo('" + todo_manager.todos[index].name + "');\">Delete</button></td> \
             </tr> \
         ";       
     };
 
-    var new_list = header + todo_items + footer;
+    var completed_items = "";
+
+    for (var index = 0; index < completed_manager.length(); index = index + 1) {
+        completed_items = completed_items + " \
+            <tr bgcolor=\"#33cc33\">\
+                <td>" + completed_manager.todos[index].name + "</td> \
+                <td>Complete</td> \
+                <td></td> \
+            </tr> \
+        ";       
+    };
+
+    var new_list = header + todo_items + completed_items + footer;
     console.log(new_list);
     todo_list.innerHTML = new_list;
 };
+
