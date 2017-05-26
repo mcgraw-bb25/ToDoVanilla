@@ -163,3 +163,43 @@ var update_view = function () {
 };
 
 
+
+
+
+// Loader
+var loader = 0;
+
+
+if (loader === 0) {
+    var todo_form_div = document.createElement("div");
+    todo_form_div.name ="todo_manager";
+    todo_form_div.id = "todo_manager";
+
+    var todo_adder = document.createElement("input");
+    todo_adder.name = "todo_name";
+    todo_adder.id = "todo_name";
+    todo_adder.type = "text";
+
+    var todo_adder_button = document.createElement("button");
+    todo_adder_button.onclick = function() {
+        var todo_to_add = document.getElementById("todo_name").value;
+        add_todo(todo_to_add);
+        
+        };
+    todo_adder_button.innerHTML = "Add To Do";
+
+    todo_form_div.appendChild(todo_adder);
+    todo_form_div.appendChild(todo_adder_button);
+
+    var todo_container = document.getElementById("todo");
+    todo_container.appendChild(todo_form_div);
+
+    var todo_list = document.createElement("div");
+    todo_list.name ="todo_list";
+    todo_list.id = "todo_list";
+
+    todo_container.appendChild(todo_list);
+  
+
+    loader = 1;
+}
