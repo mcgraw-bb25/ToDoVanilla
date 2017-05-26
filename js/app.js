@@ -84,8 +84,8 @@ TodoManager.prototype.complete_todo = function(TodoName) {
     
     if (legal_todo === true) {
         this.todos[position_to_complete].complete();
-        this.completed.push(this.todos[position_to_complete]);
-        this.todos.splice(position_to_complete, 1);
+//        this.completed.push(this.todos[position_to_complete]);
+//        this.todos.splice(position_to_complete, 1);
     }
     else {
         console.log("Todo does not exist, cannot complete!");
@@ -118,6 +118,8 @@ var complete_todo = function complete_todo (todo_name) {
 // View
 var update_view = function () {
     var todo_list = document.getElementById("todo_list");
+    var todo_items = "";
+    var completed_items = "";
     todo_list.innerHTML = "";
 
     var header = "\
@@ -133,32 +135,45 @@ var update_view = function () {
         </table> \
     ";
     
-    var todo_items = "";
+
 
     for (var index = 0; index < todo_manager.todo_length(); index = index + 1) {
-        todo_items = todo_items + " \
-            <tr>\
-                <td>" + todo_manager.todos[index].get_name() + "</td> \
-                <td><button onclick=\"complete_todo('" + todo_manager.todos[index].get_name() + "');\">Complete</button></td> \
-                <td><button onclick=\"delete_todo('" + todo_manager.todos[index].get_name() + "');\">Delete</button></td> \
-            </tr> \
-        ";       
+        if (!todo_manager.todos[index].get_status()) {
+            todo_items = todo_items + " \
+                <tr>\
+                    <td>" + todo_manager.todos[index].get_name() + "</td> \
+                    <td><button onclick=\"complete_todo('" + todo_manager.todos[index].get_name() + "');\">Complete</button></td> \
+                    <td><button onclick=\"delete_todo('" + todo_manager.todos[index].get_name() + "');\">Delete</button></td> \
+                </tr> \
+            ";       
+        }
+        else {
+            completed_items = completed_items + " \
+                <tr bgcolor=\"#33cc33\">\
+                    <td>" + todo_manager.todos[index].get_name() + "</td> \
+                    <td>Complete</td> \
+                    <td></td> \
+                </tr> \
+            ";       
+            
+        }
     };
 
-    var completed_items = "";
 
-    for (var index = 0; index < todo_manager.completed_length(); index = index + 1) {                
-        completed_items = completed_items + " \
-            <tr bgcolor=\"#33cc33\">\
-                <td>" + todo_manager.completed[index].get_name() + "</td> \
-                <td>Complete</td> \
-                <td></td> \
-            </tr> \
-        ";       
-    };
+
+//    for (var index = 0; index < todo_manager.completed_length(); index = index + 1) {                
+//        completed_items = completed_items + " \
+//            <tr bgcolor=\"#33cc33\">\
+//                <td>" + todo_manager.completed[index].get_name() + "</td> \
+//                <td>Complete</td> \
+//                <td></td> \
+//            </tr> \
+//        ";       
+//    };
 
     var new_list = header + todo_items + completed_items + footer;
     console.log(new_list);
     todo_list.innerHTML = new_list;
 };
+
 
