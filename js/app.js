@@ -84,8 +84,6 @@ TodoManager.prototype.complete_todo = function(TodoName) {
     
     if (legal_todo === true) {
         this.todos[position_to_complete].complete();
-//        this.completed.push(this.todos[position_to_complete]);
-//        this.todos.splice(position_to_complete, 1);
     }
     else {
         console.log("Todo does not exist, cannot complete!");
@@ -158,18 +156,6 @@ var update_view = function () {
             
         }
     };
-
-
-
-//    for (var index = 0; index < todo_manager.completed_length(); index = index + 1) {                
-//        completed_items = completed_items + " \
-//            <tr bgcolor=\"#33cc33\">\
-//                <td>" + todo_manager.completed[index].get_name() + "</td> \
-//                <td>Complete</td> \
-//                <td></td> \
-//            </tr> \
-//        ";       
-//    };
 
     var new_list = header + todo_items + completed_items + footer;
     console.log(new_list);
