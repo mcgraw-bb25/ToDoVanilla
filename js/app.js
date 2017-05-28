@@ -71,7 +71,7 @@ TodoManager.prototype.delete_todo = function(TodoName) {
 
 
 TodoManager.prototype.complete_todo = function(TodoName) {
-    
+
     var legal_todo = false;
     var position_to_complete = -1;
 
@@ -80,8 +80,8 @@ TodoManager.prototype.complete_todo = function(TodoName) {
             legal_todo = true;
             position_to_complete = index;
         };
-    };    
-    
+    };
+
     if (legal_todo === true) {
         this.todos[position_to_complete].complete();
     }
@@ -132,7 +132,6 @@ var update_view = function () {
     var footer = " \
         </table> \
     ";
-    
 
 
     for (var index = 0; index < todo_manager.todo_length(); index = index + 1) {
@@ -143,7 +142,7 @@ var update_view = function () {
                     <td><button onclick=\"complete_todo('" + todo_manager.todos[index].get_name() + "');\">Complete</button></td> \
                     <td><button onclick=\"delete_todo('" + todo_manager.todos[index].get_name() + "');\">Delete</button></td> \
                 </tr> \
-            ";       
+            ";
         }
         else {
             completed_items = completed_items + " \
@@ -152,8 +151,7 @@ var update_view = function () {
                     <td>Complete</td> \
                     <td></td> \
                 </tr> \
-            ";       
-            
+            ";
         }
     };
 
@@ -184,22 +182,22 @@ if (loader === 0) {
     todo_adder_button.onclick = function() {
         var todo_to_add = document.getElementById("todo_name").value;
         add_todo(todo_to_add);
-        
         };
     todo_adder_button.innerHTML = "Add To Do";
 
     todo_form_div.appendChild(todo_adder);
     todo_form_div.appendChild(todo_adder_button);
 
-    var todo_container = document.getElementById("todo");
-    todo_container.appendChild(todo_form_div);
+    //var todo_container = document.getElementById("todo");
+    //todo_container.appendChild(todo_form_div);
+    document.body.appendChild(todo_form_div);
 
     var todo_list = document.createElement("div");
     todo_list.name ="todo_list";
     todo_list.id = "todo_list";
 
-    todo_container.appendChild(todo_list);
-  
+    //todo_container.appendChild(todo_list);
+    document.body.appendChild(todo_list);
 
     loader = 1;
 }
